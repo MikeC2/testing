@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <script>
+            var t1;
+            var t2;
+
+            function setTimer1()
+            {
+                var date = new Date();
+                var time = date.toTimeString();
+                var times1 = document.getElementById("times1");
+                times1.innerHTML += ("<br>"+ time);
+            }
+
+            function setTimer2()
+            {
+                var date = new Date();
+                var time = date.toTimeString();
+                var times2 = document.getElementById("times2");
+                times2.innerHTML += ("<br>"+ time);
+
+                t2 = setTimeout(setTimer2, 1000);
+            }
+
+            function start()
+            {
+                t1 = setInterval(setTimer1, 1000);
+                t2 = setTimeout(setTimer2, 1000);
+            }
+
+            function stop()
+            {
+                clearInterval(t1);
+                clearTimeout(t2);
+            }
+
+            function handleVisibilityChange() {
+                if (document.visibilityState == "hidden")
+                {
+                    times1.innerHTML += ("<br>Tab hidden");
+                    times2.innerHTML += ("<br>Tab hidden");
+                }
+                else
+                {
+                    times1.innerHTML += ("<br>Tab visible");
+                    times2.innerHTML += ("<br>Tab visible");
+                }
+            }
+            document.addEventListener('visibilitychange', handleVisibilityChange, false);
+        </script>
+    </head>
+
+    <body>
+        <button onclick="start();" style="font-size:20px;">Start</button>
+        <button onclick="stop();" style="font-size:20px;">Stop</button>
+        <p/>
+        <div style="display:flex;">
+            <div id="times1" style="flex:50%">setInterval</div>
+            <div id="times2" style="flex:50%">setTimeout</div>
+        </div>
+    </body>
+</html>
